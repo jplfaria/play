@@ -17,13 +17,21 @@ e) Click on “account information” and upload and SSH key. You generate the k
    
 ### 2. SSH Tunel to the ANL Machine
 
-need help here
+> :x: NEED HELP HERE
 
 ### 3. Create an Account on Sequoia Jupyter Hub
 
-Contact Filipe either on Slack or via email fliu@anl.gov with your desired username for him to create an account. He will provide you with a temporary password you can change after you login. This username will also be the one used to connect to the DB instances Filipe created.
+Contact Filipe either on Slack or via email fliu@anl.gov with your desired username for him to create an account. This username will also be the one used to connect to the DB instances Filipe created.
 
 In addition to the ```cdm``` database available for everyone, when you contact Filipe you can ask him to crerate a sandbox database for you to play. In that case, your username will be the name for that sandbox database, which you can only see and have permission to access.
+
+<b>VERY IMPORTANT<b> - From Filipe you wil receive:
+* Temporary password to connect to the JupyterHub
+* Temporary password to connect to database instances and the DB UI
+
+
+ > :x: NEED HELP HERE should we provide instructions on how to change these passwords?
+
    
 ### 4. Access Jupyter Notebook:
    
@@ -38,6 +46,7 @@ Assuming all is properly set up you should see:
 This will open the JupyterHub Notebook interface running on the remote server.
 
 You will see many kernels are available we recommend you connect to the "Python3_ModelSEED" one since it has a bunch of libraries you might need already installed.
+![kernel](python3_modelseed.jpg)
 
 
 ### 5. Connecting to the cdm database (and other instances like your sandbox):
@@ -46,5 +55,21 @@ You can use any database abstraction layer you prefer to connect, load tables, e
 
 ```from sqlalchemy import create_engine```
 
-```engine = create_engine("mysql+pymysql://jplfaria:henrylab@172.18.0.15/cdm?charset=utf8mb4")```
+```engine = create_engine("mysql+pymysql://<your_username>:<db_password>@172.18.0.15/<db_name>?charset=utf8mb4")```
 
+* ```<your_username>``` this is the username you asked Filipe for
+* ```<db_password>>``` this is the temporary database password you got from Filipe or the one you changed it to
+* ```<db_name>``` the DB name you wan to connect to for example ```cdm`` and ```cdm_test``. You can login in the DB UI interface (instructions below to see what databases you have access to)
+
+### 6. Connecting to the DB UI 
+
+Open a web browser and navigate to the following URL:
+```
+[http://sequoia.mcs.anl.gov:8001](http://sequoia.mcs.anl.gov:8100)
+```
+
+When prompted to login, username and password are:
+* The username you asked Filipe for
+* The temporary database password you got from Filipe or the one you changed it to
+
+Once you in you should see something like this:
