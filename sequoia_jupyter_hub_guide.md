@@ -42,6 +42,9 @@ or
 ssh -A -J <ac.anl_username>@logins.cels.anl.gov -D 1234 <ac.anl_username>@sequoia.mcs.anl.gov
 ```
 
+Additional information on SSH proxys can be found here: https://kbase-jira.atlassian.net/wiki/spaces/PublicOps/pages/1491533825/Configure+FoxyProxy  https://kbase-jira.atlassian.net/wiki/spaces/PublicOps/pages/1411186689/SSH+Proxy+Guides+Kubectl
+
+If you still are having issues after reviewing all information reach out for help in the  ```#sysadmin``` channel on Slack
 
 ### 3. Create an Account on Sequoia Jupyter Hub
 
