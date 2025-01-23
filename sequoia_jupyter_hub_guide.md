@@ -1,4 +1,4 @@
-# User Guide: Accessing Sequoia Jupyterhub on
+# User Guide: Accessing Sequoia Jupyterhub on Sequoia (ANL)
 
 ## Step-by-Step Guide
 
