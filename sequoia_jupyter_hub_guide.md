@@ -17,7 +17,31 @@ e) Click on “account information” and upload and SSH key. You generate the k
    
 ### 2. SSH Tunel to the ANL Machine
 
-> :x: NEED HELP HERE
+```<ac.anl_username>```: Your username for SSH access.
+
+
+```
+ssh -A -J <ac.anl_username>login.kbase.us <ac.anl_username>sequoia.mcs.anl.gov
+```
+
+or
+
+```
+ssh -A -J <ac.anl_username>@logins.cels.anl.gov <ac.anl_username>@sequoia.mcs.anl.gov
+```
+
+Or if you want to use a SOCKS proxy
+
+```
+ssh -A -J <ac.anl_username>l@ogin.kbase.us -D 1234 <ac.anl_username>@sequoia.mcs.anl.gov
+```
+
+or
+
+```
+ssh -A -J <ac.anl_username>@logins.cels.anl.gov -D 1234 <ac.anl_username>@sequoia.mcs.anl.gov
+```
+
 
 ### 3. Create an Account on Sequoia Jupyter Hub
 
