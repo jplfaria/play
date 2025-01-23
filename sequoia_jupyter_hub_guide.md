@@ -51,7 +51,7 @@ You will see many kernels are available we recommend you connect to the "Python3
 
 ### 5. Connecting to the cdm database (and other instances like your sandbox):
 
-You can use any database abstraction layer you prefer to connect, load tables, etc, in this example I will be using SQLAlchemy
+You can use any database abstraction layer you prefer to connect to the databases, load tables, etc, in this example I will be using SQLAlchemy
 
 ```from sqlalchemy import create_engine```
 
@@ -60,6 +60,9 @@ You can use any database abstraction layer you prefer to connect, load tables, e
 * ```<your_username>``` this is the username you asked Filipe for
 * ```<db_password>>``` this is the temporary database password you got from Filipe or the one you changed it to
 * ```<db_name>``` the DB name you wan to connect to for example ```cdm`` and ```cdm_test``. You can login in the DB UI interface (instructions below to see what databases you have access to)
+
+
+ > :x: We need to discuss best practices since right now anyone can drop tables and mess up other work, that's why asking Filipe for a sandbox is a good idea. We can implement permission restrictions or manage work between ```cdm``` and ```cdm-test``` but for now be careful!
 
 ### 6. Connecting to the DB UI 
 
@@ -73,3 +76,9 @@ When prompted to login, username and password are:
 * The temporary database password you got from Filipe or the one you changed it to
 
 Once you in you should see something like this:
+
+![db_ui](db_ui.jpg)
+
+Explore the interface but a couple of things you might find helpful:
+* SQL tab, run SQL queries directly in this interface
+* Designer tab, see the ER diagram
