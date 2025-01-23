@@ -1,4 +1,4 @@
-# User Guide: Accessing Sequoia Jupyterhub on Sequoia (ANL)
+# User Guide: Accessing Sequoia JupyterHub on Sequoia (ANL)
 
 ## Step-by-Step Guide
 
@@ -33,7 +33,7 @@ In addition to the ```cdm``` database available for everyone, when you contact F
  > :x: NEED HELP HERE should we provide instructions on how to change these passwords?
 
    
-### 4. Access Jupyter Notebook:
+### 4. Access JupyterHub:
    
 Open a web browser and navigate to the following URL:
 
