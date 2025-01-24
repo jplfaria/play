@@ -95,7 +95,7 @@ You can use any database abstraction layer you prefer to connect to the database
 
 Open a web browser and navigate to the following URL:
 ```
-[http://sequoia.mcs.anl.gov:8001](http://sequoia.mcs.anl.gov:8100)
+http://sequoia.mcs.anl.gov:8100
 ```
 
 When prompted to login, username and password are:
