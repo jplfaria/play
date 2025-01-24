@@ -86,7 +86,7 @@ You can use any database abstraction layer you prefer to connect to the database
 
 * ```<your_username>``` this is the username you asked Filipe for
 * ```<db_password>>``` this is the temporary database password you got from Filipe or the one you changed it to
-* ```<db_name>``` the DB name you wan to connect to for example ```cdm`` and ```cdm_test``. You can login in the DB UI interface (instructions below to see what databases you have access to)
+* ```<db_name>``` the DB name you wan to connect to for example ```cdm``` and ```cdm_test```. You can login in the DB UI interface (instructions below to see what databases you have access to)
 
 
  > :x: We need to discuss best practices since right now anyone can drop tables and mess up other work, that's why asking Filipe for a sandbox is a good idea. We can implement permission restrictions or manage work between ```cdm``` and ```cdm-test``` but for now be careful!
