@@ -82,7 +82,7 @@ You can use any database abstraction layer you prefer to connect to the database
 
 ```from sqlalchemy import create_engine```
 
-```engine = create_engine("mysql+pymysql://<your_username>:<db_password>@172.18.0.15/<db_name>?charset=utf8mb4")```
+```engine = create_engine("mysql+pymysql://<your_username>:<db_password>@172.18.0.3/<db_name>?charset=utf8mb4")```
 
 * ```<your_username>``` this is the username you asked Filipe for
 * ```<db_password>>``` this is the temporary database password you got from Filipe or the one you changed it to
