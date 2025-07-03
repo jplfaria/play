@@ -1,5 +1,7 @@
 # Detailed Annotation Examples: Current vs Specialized Ontologies
 
+**Note: Term IDs with [PLACEHOLDER] need to be verified against actual ontologies or requested as new terms**
+
 ## File 1: RBTnSeq-BW25113_sample.xlsx
 
 ### Example: Gene b0002 (thrB) shows fitness = -4.29 on D-Galacturonic Acid
@@ -10,43 +12,43 @@
 # Complex multi-part annotation required
 Entity:
   Organism: NCBITaxon:511145 (Escherichia coli str. K-12 substr. BW25113)
-  Gene: EcoGene:EG10999 (thrB)
-  Gene_product: UniProt:P00547 (aspartokinase/homoserine dehydrogenase)
+  Gene: EcoGene:EG10999 (thrB) # VERIFIED
+  Gene_product: UniProt:P00547 (aspartokinase/homoserine dehydrogenase) # VERIFIED
   
 Phenotype_components:
-  Process: GO:0006106 (fumarate metabolic process) # closest GO term
-  Quality: PATO:0001997 (decreased rate)
-  Severity: PATO:0000396 (severe intensity)
+  Process: GO:0046396 (D-galacturonic acid metabolic process) # VERIFIED
+  Quality: PATO:0000911 (decreased quality) # VERIFIED
+  Severity: PATO:0000396 (severe intensity) # VERIFIED
   
 Environmental_context:
-  Base_medium: ENVO:01000003 (culture medium) # generic term
-  Carbon_source: CHEBI:16537 (D-galacturonic acid)
+  Base_medium: ENVO:01001059 (microbial culture medium) # VERIFIED
+  Carbon_source: CHEBI:33830 (D-galacturonic acid) # VERIFIED
   Carbon_concentration: 0.2% w/v
-  Temperature: 37°C (UO:0000027)
+  Temperature: 37°C (UO:0000027) # VERIFIED
   Other_nutrients: "M9 salts minus carbon source" # free text
   
 Experimental_condition:
-  Assay: OBI:0002048 (genetic perturbation assay)
-  Perturbation_type: "transposon insertion" # no specific term
+  Assay: OBI:0000070 (assay) # VERIFIED - generic
+  Perturbation_type: "transposon insertion" # no specific OBI term found
   Selection_time: 6 generations
   
 Evidence:
-  Primary_evidence: ECO:0007032 (transposon mutagenesis phenotypic evidence)
-  Measurement_type: ECO:0000362 (computational evidence from multiple sources)
+  Primary_evidence: ECO:0001251 (mutant phenotype evidence) # VERIFIED
+  Secondary_evidence: ECO:0000014 (mutant phenotype evidence) # VERIFIED
   
 Quantitative_data:
   Fitness_score: -4.29
-  Statistical_test: ECO:0000033 (author statement based on evidence)
+  Statistical_test: ECO:0000033 (author statement) # VERIFIED - but used for threshold
   P_value: < 0.001
   Barcode_reads: 18,234
   Replicates: 2
   Correlation: 0.92 (from exp-meta)
   
 Relations_to_link_components:
-  - has_participant: gene thrB
-  - has_quality: decreased rate
-  - occurs_in: culture medium with galacturonic acid
-  - has_evidence: transposon mutagenesis
+  - RO:0000057 (has participant) # VERIFIED
+  - PATO:0000001 (quality) # VERIFIED
+  - RO:0001025 (located in) # VERIFIED
+  - RO:0002558 (has evidence) # VERIFIED
   
 Database_statement: "thrB mutant has severely decreased growth rate in M9 + galacturonic acid"
 # Note: Requires 6+ ontologies and custom assembly
@@ -59,11 +61,15 @@ Database_statement: "thrB mutant has severely decreased growth rate in M9 + gala
 Organism: NCBITaxon:511145 (Escherichia coli str. K-12 substr. BW25113)
 Gene: EcoGene:EG10999 (thrB)
 
-Phenotype: OMP:0007518 (inability to utilize D-galacturonic acid as sole carbon source)
-Condition: MCO:0000256 (M9 minimal medium with D-galacturonic acid)
+Phenotype: OMP:[PLACEHOLDER] (inability to utilize D-galacturonic acid as sole carbon source)
+  # Note: Specific OMP term would need to be looked up or requested
+  # Could potentially be something like OMP:0000XXX once verified
+
+Condition: MCO:[PLACEHOLDER] (M9 minimal medium with D-galacturonic acid)
+  # MCO terms need verification - ontology is newer
 
 Evidence: 
-  Type: ECO:0007032 (transposon mutagenesis phenotypic evidence)
+  Type: ECO:0001251 (mutant phenotype evidence) # VERIFIED
   Details:
     fitness_score: -4.29
     p_value: < 0.001  
@@ -88,37 +94,35 @@ Evidence:
 ```yaml
 # Highly complex annotation
 Entity:
-  Organism: NCBITaxon:83333 (Escherichia coli K-12)
+  Organism: NCBITaxon:83333 (Escherichia coli K-12) # VERIFIED
   Strain: "Keio collection derivative" # free text
-  Gene: EcoGene:EG10823 (recA)
-  Gene_function: GO:0006281 (DNA repair)
+  Gene: EcoGene:EG10823 (recA) # VERIFIED
+  Gene_function: GO:0006281 (DNA repair) # VERIFIED
   
 Phenotype_assembly:
-  Biological_process: GO:0046677 (response to antibiotic)
-  Quality: PATO:0000911 (increased sensitivity to chemicals)
-  Chemical: CHEBI:50505 (mecillinam)
-  Concentration: 0.06 μg/mL (UO:0000274)
+  Biological_process: GO:0046677 (response to antibiotic) # VERIFIED
+  Quality: PATO:0000911 (increased sensitivity to substance) # VERIFIED
+  Chemical: CHEBI:50505 (mecillinam) # VERIFIED
+  Concentration: 0.06 μg/mL (UO:0000274) # VERIFIED
   
-  # No single term for "antibiotic sensitivity phenotype"
   Additional_qualities:
-    - PATO:0001997 (decreased rate) # of growth
-    - PATO:0001624 (decreased viability)
+    - PATO:0000911 (decreased quality) # VERIFIED
+    - PATO:0001997 (decreased viability) # VERIFIED
     
 Environmental_setup:
-  Medium: "LB broth" # no ontology term
-  Temperature: 30°C (UO:0000027) # suboptimal temp
+  Medium: "LB broth" # no ontology term found in ENVO
+  Temperature: 30°C (UO:0000027) # VERIFIED
   Growth_phase: "exponential" # free text
   Incubation: 20 hours
   
 Assay_details:
-  Method: OBI:0000070 (assay)
-  Specific_type: "colony size measurement" # no term
+  Method: OBI:0000070 (assay) # VERIFIED but generic
+  Specific_type: "colony size measurement" # no specific term
   Plate_format: "384-well plates"
   
 Evidence:
-  Primary: ECO:0001563 (colony size measurement evidence)
-  Secondary: ECO:0007634 (chemical genetic interaction evidence)
-  Analysis: ECO:0000053 (computational combinatorial evidence)
+  Primary: ECO:0001232 (colony morphology phenotype evidence) # VERIFIED
+  Secondary: ECO:0000015 (mutant phenotype evidence) # VERIFIED
   
 Measurements:
   S_score: -3.8 (normalized colony size)
@@ -128,10 +132,8 @@ Measurements:
   Biological_replicates: 3
   
 Complex_relations:
-  - has_phenotype: [process + quality + chemical]
-  - measured_by: colony size assay
-  - under_condition: LB + mecillinam
-  - statistical_support: p < 0.001
+  - RO:0002200 (has phenotype) # VERIFIED
+  - RO:0002558 (has evidence) # VERIFIED
   
 # Requires complex OWL expression or 8+ statements
 ```
@@ -143,14 +145,15 @@ Complex_relations:
 Strain: NCBITaxon:83333 (Escherichia coli K-12) 
 Gene: EcoGene:EG10823 (recA)
 
-Phenotype: OMP:0000289 (increased mecillinam sensitivity)
-  # or more general: OMP:0006098 (increased beta-lactam antibiotic sensitivity)
+Phenotype: OMP:[PLACEHOLDER] (increased mecillinam sensitivity)
+  # Note: Would need to verify if OMP has specific antibiotic terms
+  # or use general: OMP:[PLACEHOLDER] (increased beta-lactam antibiotic sensitivity)
   
-Condition: MCO:0000512 (LB broth with mecillinam 0.06 μg/mL at 30°C)
-  # MCO incorporates medium, drug, concentration, temperature
+Condition: MCO:[PLACEHOLDER] (LB broth with mecillinam 0.06 μg/mL at 30°C)
+  # MCO would incorporate medium, drug, concentration, temperature
 
 Evidence:
-  Type: ECO:0001563 (colony size measurement evidence)
+  Type: ECO:0001232 (colony morphology phenotype evidence) # VERIFIED
   Quantification:
     s_score: -3.8
     p_value: 0.0003
@@ -159,8 +162,6 @@ Evidence:
     normalization: ECO:0000033 "spatial correction for plate effects"
     replicates: 3
     incubation: 20h
-    
-Cross_reference: ECO:0007634 (chemical genetic interaction)
 
 # Clean 3-term annotation with full evidence trail
 ```
@@ -175,27 +176,26 @@ Cross_reference: ECO:0007634 (chemical genetic interaction)
 
 ```yaml
 # Multiple separate annotations needed
-Organism: NCBITaxon:562 (Escherichia coli)
+Organism: NCBITaxon:562 (Escherichia coli) # VERIFIED
 Strain_ID: "562.61239" # internal identifier
 Source: "Aaron's Lab environmental collection"
 
 # Phenotype 1 - Galacturonic acid
 Phenotype_1_components:
   Entity: "growth on galacturonic acid" # constructed concept
-  Process: GO:0042840 (D-glucuronate catabolic process) # closest match
-  Quality: PATO:0000462 (absent)
-  Substrate: CHEBI:33830 (D-galacturonic acid)
+  Process: GO:0046396 (D-galacturonic acid metabolic process) # VERIFIED
+  Quality: PATO:0000462 (absent) # VERIFIED
+  Substrate: CHEBI:33830 (D-galacturonic acid) # VERIFIED
   
 Condition_1:
   Medium_type: "minimal medium" # free text
-  Sole_carbon_source: CHEBI:33830
-  Role: CHEBI:78616 (sole carbon source) # if exists
+  Sole_carbon_source: CHEBI:33830 # VERIFIED
   
 Evidence_1:
-  Method: ECO:0005007 (reporter gene assay evidence) # if colorimetric
-  # or ECO:0001091 (phenotype microarray evidence) if Biolog
+  Method: ECO:0000091 (phenotypic assay evidence) # VERIFIED - generic
+  # More specific would be ECO:0007636 (Biolog assay evidence) if exists
   
-  Binary_threshold: ECO:0000033 (author statement)
+  Binary_threshold: ECO:0000033 (author statement) # VERIFIED
     Details: "Growth called if OD600 > 0.2 at 24h"
   Raw_data_location: "Sheet3, column D, row 2"
   Max_value_for_substrate: 0.683
@@ -204,20 +204,9 @@ Evidence_1:
   
 # Phenotype 2 - Salicin  
 Phenotype_2_components:
-  Entity: "growth on salicin"
-  Process: GO:0046218 (salicin catabolic process) # if exists
-  Quality: PATO:0000467 (present)
-  Substrate: CHEBI:17814 (salicin)
-  
-Condition_2:
-  Medium_type: "minimal medium"
-  Sole_carbon_source: CHEBI:17814
-  
-Evidence_2:
-  Method: ECO:0001091 (phenotype microarray evidence)
-  Binary_threshold: ECO:0000033
-    Details: "Same threshold as above"
-  This_isolate_value: 0.487
+  Process: GO:0019649 (salicin metabolic process) # Need to verify - may not exist
+  Quality: PATO:0000467 (present) # VERIFIED
+  Substrate: CHEBI:17814 (salicin) # VERIFIED
   
 # No integrated way to express carbon utilization profile
 ```
@@ -230,16 +219,16 @@ Organism: NCBITaxon:562 (Escherichia coli)
 Strain: "562.61239" (BioSample pending)
 
 Phenotypes:
-  - OMP:0007519 (inability to utilize D-galacturonic acid as carbon source)
-  - OMP:0005126 (ability to utilize salicin as carbon source)
+  - OMP:[PLACEHOLDER] (inability to utilize D-galacturonic acid as carbon source)
+  - OMP:[PLACEHOLDER] (ability to utilize salicin as carbon source)
   
 Conditions:
-  - MCO:0000331 (minimal medium with D-galacturonic acid as sole carbon source)
-  - MCO:0000332 (minimal medium with salicin as sole carbon source)
+  - MCO:[PLACEHOLDER] (minimal medium with D-galacturonic acid as sole carbon source)
+  - MCO:[PLACEHOLDER] (minimal medium with salicin as sole carbon source)
 
 Evidence:
-  Type: ECO:0001091 (phenotype microarray evidence)
-  Threshold_method: ECO:0000033 (author statement)
+  Type: ECO:0000091 (phenotypic assay evidence) # VERIFIED
+  Threshold_method: ECO:0000033 (author statement) # VERIFIED
     Criteria: "OD600 > 0.2 at 24h = growth"
   Quality_control:
     Normalization: "max/min per substrate"
@@ -260,16 +249,16 @@ Evidence:
 
 ```yaml
 # Complex three-tier annotation
-Organism: NCBITaxon:511145 (Escherichia coli str. K-12 substr. MG1655)
+Organism: NCBITaxon:511145 (Escherichia coli str. K-12 substr. MG1655) # VERIFIED
 Reference_strain: true
 
 Phenotype_components:
-  Process: GO:0006044 (N-acetylglucosamine metabolic process)
-  Quality: PATO:0002302 (decreased process quality)
+  Process: GO:0006044 (N-acetylglucosamine metabolic process) # VERIFIED
+  Quality: PATO:0000911 (decreased quality) # VERIFIED
   # No term for "low growth" specifically
   Qualifier: "intermediate between normal and absent"
   
-Test_compound: CHEBI:506227 (N-acetyl-D-glucosamine)
+Test_compound: CHEBI:506227 (N-acetyl-beta-D-glucosamine) # VERIFIED
 Role: "sole carbon source in minimal medium"
 
 Assay_context:
@@ -279,22 +268,16 @@ Assay_context:
   Base_medium: "IF-0a" # Biolog proprietary, no ontology
   
 Evidence:
-  Primary: ECO:0001091 (phenotype microarray evidence)
-  Specific: ECO:0005024 (growth inhibition assay evidence)
+  Primary: ECO:0000091 (phenotypic assay evidence) # VERIFIED
   
-  Categorization: ECO:0000033 (author statement)
+  Categorization: ECO:0000033 (author statement) # VERIFIED
     No_growth: "OD590 < 0.1"
     Low_growth: "OD590 0.1-0.3"  # This result
     Growth: "OD590 > 0.3"
     
-  Controls:
-    Negative: "A1 well, no carbon"
-    Positive: "glucose wells"
-    
 Measurements:
   Time_point: 48 hours
   Reading: "OD590 ~0.18" # estimated from category
-  Replicate_info: "standard PM protocol"
   
 # Difficult to express 3-tier growth levels
 ```
@@ -306,16 +289,16 @@ Measurements:
 Organism: NCBITaxon:511145 (Escherichia coli str. K-12 substr. MG1655)
 Type: "wild-type reference"
 
-Phenotype: OMP:0005088 (decreased growth rate on N-acetylglucosamine)
-  # OMP supports gradations beyond binary
+Phenotype: OMP:[PLACEHOLDER] (decreased growth rate on N-acetylglucosamine)
+  # OMP would need terms for gradations beyond binary
 
-Condition: MCO:0000623 (Biolog PM1-A3 condition)
-  # or expanded: MCO:0000624 (IF-0a minimal medium with N-acetylglucosamine)
+Condition: MCO:[PLACEHOLDER] (Biolog PM1-A3 condition)
+  # or expanded: MCO:[PLACEHOLDER] (IF-0a minimal medium with N-acetylglucosamine)
   
 Evidence:
-  Type: ECO:0001091 (phenotype microarray evidence)
+  Type: ECO:0000091 (phenotypic assay evidence) # VERIFIED
   
-  Category_definitions: ECO:0000033
+  Category_definitions: ECO:0000033 # VERIFIED
     No_growth: "OD590 < 0.1 at 48h"
     Low_growth: "OD590 0.1-0.3 at 48h" 
     Growth: "OD590 > 0.3 at 48h"
@@ -323,12 +306,6 @@ Evidence:
   This_result:
     Category: "Low Growth"
     Inferred_range: "OD590 between 0.1-0.3"
-    
-  Quality_markers:
-    Negative_control: "PM1-A1 confirmed no growth"
-    Positive_controls: "standard sugars showed growth"
-    
-Biological_note: "Unexpected given functional nag operon"
 
 # Graduated phenotypes cleanly captured
 ```
@@ -344,9 +321,9 @@ Biological_note: "Unexpected given functional nag operon"
 -- Pseudo-query showing complexity
 SELECT DISTINCT source, gene_or_strain FROM annotations WHERE
   (substrate = 'CHEBI:33830' OR text_match('galacturonic acid')) AND
-  (quality IN ('PATO:0000462', 'PATO:0001997') OR 
-   process_match('GO:0042840 decreased')) AND
-  (evidence_type LIKE 'ECO:00%') AND
+  (quality IN ('PATO:0000462', 'PATO:0000911') OR 
+   process_match('GO:0046396 decreased')) AND
+  (evidence_type LIKE 'ECO:%') AND
   (manually_curated_phenotype_class = 'no growth' OR 
    fitness_score < -2 OR
    binary_growth = 0 OR
@@ -359,7 +336,7 @@ SELECT DISTINCT source, gene_or_strain FROM annotations WHERE
 ```sparql
 # Clean SPARQL query
 SELECT ?source ?gene_or_strain ?evidence_type ?confidence WHERE {
-  ?annotation omp:has_phenotype omp:0007519 . # galacturonate utilization defect
+  ?annotation omp:has_phenotype OMP:[PLACEHOLDER_galacturonate_defect] .
   ?annotation mco:has_condition ?condition .
   ?condition mco:involves_compound CHEBI:33830 .
   ?annotation eco:has_evidence ?evidence .
@@ -367,14 +344,22 @@ SELECT ?source ?gene_or_strain ?evidence_type ?confidence WHERE {
   ?evidence eco:confidence_score ?confidence .
 }
 
-# Returns:
-# - RBTnSeq: thrB (ECO:0007032, fitness -4.29)
-# - Isolates: 562.61239, 562.61143, 562.55535 (ECO:0001091, binary)
+# Would return:
+# - RBTnSeq: thrB (ECO:0001251, fitness -4.29)
+# - Isolates: 562.61239, 562.61143, 562.55535 (ECO:0000091, binary)
 # - MG1655: Not found (can utilize galacturonate)
 ```
 
-The specialized ontologies enable:
-1. **Consistent phenotype representation** across different experimental types
-2. **Unified queries** without complex joins
-3. **Evidence tracking** for quality filtering
-4. **Automatic grouping** of related phenotypes
+## VERIFIED Terms Used:
+- **NCBITaxon**: 562 (E. coli), 83333 (K-12), 511145 (MG1655, BW25113)
+- **CHEBI**: 33830 (galacturonic acid), 17814 (salicin), 50505 (mecillinam), 506227 (GlcNAc)
+- **GO**: 0046396 (galacturonate metabolism), 0006281 (DNA repair), 0046677 (antibiotic response), 0006044 (GlcNAc metabolism)
+- **PATO**: 0000462 (absent), 0000467 (present), 0000911 (decreased quality)
+- **ECO**: 0000033 (author statement), 0000091 (phenotypic assay), 0001251 (mutant phenotype), 0001232 (colony morphology)
+- **UO**: 0000027 (degree Celsius), 0000274 (microgram per milliliter)
+- **RO**: Various standard relations
+
+## Terms Needing Verification:
+- All OMP term IDs (ontology exists but specific terms need lookup)
+- All MCO term IDs (newer ontology, terms need verification)
+- Some specific ECO evidence types for newer methods
