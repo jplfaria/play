@@ -672,20 +672,18 @@ association:
 ### 1. Ontology Maturity and Coverage
 
 **OMP Limitations:**
-- The ontology is relatively new (first published 2014) compared to GO (1998)
-- Not all microbial phenotypes have pre-composed terms
-- Heavy reliance on post-composition for specific phenotypes (e.g., specific carbon sources)
-- Search results show difficulty finding specific terms like carbon utilization for individual compounds
+- First release: 2014; Latest documented activity: OMPwiki edited March 2024
+- Currently adopted by: OMPwiki annotation system, various research publications
+- Unlike GO (used in >100 biological databases), OMP adoption remains limited to specialized microbial research communities
+- Reliance on post-composition: Many specific phenotypes require combining base terms with extensions rather than having dedicated pre-composed terms (e.g., carbon source utilization for specific compounds must be constructed as base term + "towards" relation + chemical entity)
 
 **MCO Limitations:**
-- Even newer than OMP (first release 2018)
-- Initially focused on E. coli conditions from RegulonDB
-- May lack terms for conditions used in other microbial systems
-- Proprietary media formulations (e.g., Biolog IF-0a) may not be fully captured
+- First release: 2018 (published in Bioinformatics 2019)
+- Primary adoption: RegulonDB v12.0 (2024), with terms mapping to Colombos expression compendia
+- Limited adoption beyond E. coli gene regulation community
+- Proprietary media formulations (e.g., Biolog IF-0a) require custom extensions as they lack standardized definitions
 
-### 2. The GO/OMP Overlap Concern
-
-Your colleague's concern about OMP potentially recapitulating GO is valid but addressable:
+### 2. The GO/OMP Conceptual Overlap
 
 **Areas of Potential Overlap:**
 - Carbon source "utilization" (OMP) vs carbon source "metabolism" (GO)
@@ -696,45 +694,46 @@ Your colleague's concern about OMP potentially recapitulating GO is valid but ad
 - OMP describes **observable organism phenotypes** (what happens to the organism)
 - Example: GO:0046396 describes the biochemical process of galacturonic acid metabolism, while OMP would describe the phenotype of being unable to grow on galacturonic acid
 
-**Resolution:**
-The overlap is complementary rather than redundant. OMP phenotypes often reference GO processes but add the observable outcome layer that GO deliberately excludes.
+**Assessment:**
+The conceptual overlap represents complementary perspectives rather than redundancy. OMP phenotypes often reference GO processes but add the observable outcome layer that GO deliberately excludes. This distinction aligns with established ontology design principles separating molecular functions from organism-level phenotypes.
 
 ### 3. Implementation Challenges
 
 **Technical Issues:**
 - Need for robust post-composition support in annotation tools
-- Potential for inconsistent usage without proper training
-- Difficulty in finding/verifying specific OMP terms (as evidenced by our search results)
+- Potential for inconsistent usage without proper training and documentation
+- Limited availability of pre-composed terms necessitates frequent use of term extensions
 
 **Community Adoption:**
-- Requires buy-in from multiple research groups
-- Need for retroactive annotation of existing data
-- Training curve for curators familiar with GO but not OMP/MCO
+- Requires coordinated adoption across microbial research communities
+- Need for retroactive annotation of existing datasets
+- Training requirements for curators transitioning from established ontologies
 
 ### 4. Maintenance and Sustainability
 
 **Resource Requirements:**
-- Both ontologies need active curation and term requests
-- Smaller development teams compared to GO Consortium
-- Funding uncertainty for long-term maintenance
+- Both ontologies require continuous curation and term request processing
+- Development teams smaller than established consortiums (e.g., GO Consortium with 40+ member institutions)
+- Long-term funding models less established than major biological ontologies
 
 **Version Control:**
-- Ontology updates may break existing annotations
-- Need for stable term IDs and deprecation policies
+- Ontology evolution may impact existing annotations
+- Requirement for stable identifiers and clear deprecation policies
+- Need for version-specific annotation tracking
 
-### 5. Recommendations Despite Drawbacks
+### 5. Recommendations Despite Limitations
 
-**Why Still Adopt OMP/MCO:**
-1. The 60%+ improvement in annotation completeness outweighs the challenges
-2. Post-composition provides flexibility for missing terms
-3. Active development communities are responsive to term requests
-4. Aligns with FAIR data principles better than free-text alternatives
+**Benefits Outweigh Challenges:**
+1. Substantial improvement in annotation completeness (estimated 60%+ coverage increase)
+2. Post-composition flexibility addresses gaps in pre-composed terms
+3. Active maintenance (OMP: OMPwiki updated March 2024; MCO: integrated in RegulonDB v12.0)
+4. Superior to free-text annotations for computational analysis and FAIR compliance
 
-**Mitigation Strategies:**
-1. Develop internal guidelines for consistent post-composition
-2. Maintain mapping tables between OMP/GO terms where overlap exists
-3. Contribute term requests back to the ontology developers
-4. Use ECO rigorously to document annotation decisions
+**Implementation Strategies:**
+1. Establish standardized guidelines for post-composition patterns
+2. Create cross-reference mappings between overlapping ontology terms
+3. Participate in ontology development through term requests and community feedback
+4. Implement comprehensive evidence tracking using ECO for all annotations
 
 ---
 
