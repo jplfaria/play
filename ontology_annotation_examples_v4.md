@@ -2,6 +2,8 @@
 
 **Version 4.0** - Enhanced with verified terms, comprehensive comments, and critical assessment
 
+⚠️ **VERIFICATION STATUS**: All ontology terms were systematically verified on 2025-01-03. Terms marked as [UNVERIFIED] could not be confirmed in official ontology sources. One critical error was corrected: OMP:0005009 is "acidophile" (pH phenotype), NOT "hexose utilization" as originally stated.
+
 ## Overview
 
 This document demonstrates how to annotate microbial phenotype data using an association-based model, with parallel examples showing:
@@ -78,7 +80,7 @@ association:
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
     condition_qualifier: 
-      id: "MCO:0000031"  # M9 minimal medium
+      id: "MCO:0000031"  # M9 minimal medium [UNVERIFIED but mentioned in MCO publications]
       extensions:
         carbon_source: "CHEBI:33830"  # D-galacturonic acid
         concentration: "0.2% w/v"
@@ -153,13 +155,15 @@ association:
     taxon: "NCBITaxon:511145"  # Escherichia coli str. K-12 substr. BW25113
   predicate: "RO:0002200"  # has phenotype
   object:
-    id: "OMP:0005009"  # hexose utilization
-    label: "hexose utilization phenotype"
-    specific_substrate: "CHEBI:17118"  # D-galactose
+    # WARNING: OMP:0005009 is actually "acidophile" (pH phenotype) - NOT hexose utilization
+    # Using placeholder with post-composition approach
+    id: "[PLACEHOLDER: carbon utilization phenotype]"
+    label: "carbon source utilization phenotype"
+    extension: "RO:0002503 towards CHEBI:17118"  # towards D-galactose
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
     condition_qualifier:
-      id: "MCO:0000031"  # M9 minimal medium
+      id: "MCO:0000031"  # M9 minimal medium [UNVERIFIED but mentioned in MCO publications]
       extensions:
         carbon_source: "CHEBI:17118"  # D-galactose
         concentration: "0.2% w/v"
@@ -245,10 +249,10 @@ association:
     label: "recA"
     taxon: "NCBITaxon:511145"  # Escherichia coli str. K-12 substr. BW25113
   qualifiers:
-    phenotype: "OMP:0000336"  # beta-lactam resistance phenotype
+    phenotype: "OMP:0000336"  # beta-lactam resistance phenotype [VERIFIED]
     phenotype_direction: "PATO:0000911"  # decreased quality
     condition_qualifier:
-      id: "MCO:0000032"  # LB broth
+      id: "MCO:0000032"  # LB broth [UNVERIFIED but mentioned in MCO publications]
       extensions:
         compound: "CHEBI:50505"  # mecillinam
         concentration: "0.06 μg/mL"
@@ -328,10 +332,10 @@ association:
     label: "nuoA"
     pathway: "GO:0006979"  # response to oxidative stress
   qualifiers:
-    phenotype: "OMP:0005135"  # oxidative stress sensitivity
+    phenotype: "OMP:0005135"  # oxidative stress sensitivity [UNVERIFIED - term existence uncertain]
     mechanism_note: "iron-sulfur cluster damage"
     condition_qualifier:
-      id: "MCO:0000032"  # LB broth
+      id: "MCO:0000032"  # LB broth [UNVERIFIED but mentioned in MCO publications]
       extensions:
         stressor: "CHEBI:16240"  # hydrogen peroxide
         concentration: "2.5 mM"
@@ -414,7 +418,7 @@ association:
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
     condition_qualifier:
-      id: "MCO:0000030"  # minimal medium
+      id: "MCO:0000030"  # minimal medium [UNVERIFIED but mentioned in MCO publications]
       extensions:
         carbon_source: "CHEBI:33830"  # D-galacturonic acid
         temperature: "37°C"
@@ -495,7 +499,7 @@ association:
     phenotype_state: "PATO:0000467"  # present
     substrate_qualifier: "CHEBI:17814"  # salicin
     condition_qualifier:
-      id: "MCO:0000030"  # minimal medium
+      id: "MCO:0000030"  # minimal medium [UNVERIFIED but mentioned in MCO publications]
       substrate_extension: "CHEBI:17814"  # salicin
   evidence:
     - type: "ECO:0001845"  # cell population optical density evidence
@@ -568,13 +572,13 @@ association:
     reference_strain: true
   predicate: "RO:0002200"  # has phenotype
   object:
-    id: "OMP:0005040"  # N-acetylglucosamine utilization
-    label: "N-acetylglucosamine utilization"
+    id: "OMP:0005040"  # [UNVERIFIED: N-acetylglucosamine utilization - specific term may not exist]
+    label: "N-acetylglucosamine utilization phenotype"
   qualifiers:
     phenotype_state: "PATO:0000911"  # decreased quality
     growth_category: "low growth"
     condition_qualifier:
-      id: "MCO:0000030"  # minimal medium
+      id: "MCO:0000030"  # minimal medium [UNVERIFIED but mentioned in MCO publications]
       biolog_specific:
         plate: "PM1"
         well: "A3"
@@ -642,14 +646,14 @@ association:
     label: "E. coli K-12 MG1655"
   predicate: "RO:0002200"  # has phenotype
   object:
-    id: "OMP:0005001"  # pentose utilization
+    id: "OMP:0005001"  # [UNVERIFIED: pentose utilization - specific term may not exist]
     label: "pentose utilization phenotype"
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
     substrate_qualifier: "CHEBI:16716"  # L-arabinose
     unexpected_result: true
     condition_qualifier:
-      id: "MCO:0000030"  # minimal medium
+      id: "MCO:0000030"  # minimal medium [UNVERIFIED but mentioned in MCO publications]
       plate_context:
         system: "PM1"
         well: "A2"
@@ -675,7 +679,11 @@ association:
 - First release: 2014; Latest documented activity: OMPwiki edited March 2024
 - Currently adopted by: OMPwiki annotation system, various research publications
 - Unlike GO (used in >100 biological databases), OMP adoption remains limited to specialized microbial research communities
-- Reliance on post-composition: Many specific phenotypes require combining base terms with extensions rather than having dedicated pre-composed terms (e.g., carbon source utilization for specific compounds must be constructed as base term + "towards" relation + chemical entity)
+- **Critical finding from verification**: Many expected pre-composed terms do not exist. For example:
+  - No specific terms found for individual carbon source utilization (e.g., galacturonic acid, galactose)
+  - Several phenotype terms could not be verified (e.g., OMP:0005040, OMP:0005001, OMP:0005135)
+  - Heavy reliance on post-composition required for basic phenotypes
+- Risk of term confusion: OMP:0005009 is "acidophile" NOT "hexose utilization" as might be assumed
 
 **MCO Limitations:**
 - First release: 2018 (published in Bioinformatics 2019)
@@ -723,11 +731,14 @@ The conceptual overlap represents complementary perspectives rather than redunda
 
 ### 5. Recommendations Despite Limitations
 
-**Benefits Outweigh Challenges:**
-1. Substantial improvement in annotation completeness (estimated 60%+ coverage increase)
-2. Post-composition flexibility addresses gaps in pre-composed terms
-3. Active maintenance (OMP: OMPwiki updated March 2024; MCO: integrated in RegulonDB v12.0)
-4. Superior to free-text annotations for computational analysis and FAIR compliance
+**Revised Assessment Based on Verification:**
+1. Coverage improvement may be less than initially estimated due to missing pre-composed terms
+2. Post-composition is not just helpful but **essential** for many basic phenotypes
+3. Term verification is **critical** - assumptions about term existence can lead to errors
+4. Still superior to free-text annotations, but requires significant curation effort
+
+**Additional Consideration:**
+The lack of pre-composed terms for common phenotypes (e.g., specific carbon source utilization) suggests OMP may need substantial expansion before it can fully replace current annotation approaches.
 
 **Implementation Strategies:**
 1. Establish standardized guidelines for post-composition patterns
@@ -769,3 +780,12 @@ The conceptual overlap represents complementary perspectives rather than redunda
 2. **With OMP/MCO**: Single phenotype term + state qualifier, but may need post-composition
 3. **Evidence remains consistent** across both approaches using ECO
 4. **Complexity reduction**: ~60% fewer terms needed with specialized ontologies when pre-composed terms exist
+
+## Verification Methodology
+
+All terms were verified through:
+1. Web searches of official ontology documentation
+2. PubMed Central articles describing the ontologies
+3. Attempts to access ontology browsers (BioPortal, OBO Foundry)
+
+**Key Finding**: The inability to verify many OMP/MCO terms through public sources highlights a significant barrier to adoption. Users need direct access to ontology browsers or must rely on publication descriptions, which may not contain all term definitions.
