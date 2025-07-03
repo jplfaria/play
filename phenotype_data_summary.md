@@ -24,7 +24,7 @@ Four microbial phenotype datasets were analyzed to determine optimal ontology co
 ### Current Ontology Assessment
 - **PATO:** ~50% coverage - provides growth magnitude terms (decreased/abolished) but lacks context
 - **Required combinations:**
-  - CHEBI for substrates (e.g., CHEBI:17234 for glucose)
+  - CHEBI for substrates (e.g., CHEBI:17234 for D-glucose)
   - ENVO/OBI for media descriptions
   - ECO for evidence (ECO:0007032 - transposon mutagenesis evidence)
   - NCBITaxon for strain identification
@@ -35,7 +35,8 @@ Four microbial phenotype datasets were analyzed to determine optimal ontology co
 - **OMP Assessment:**
   - Coverage: >90% with pre-coordinated terms like "unable to grow on galacturonate"
   - Advantages: Single terms capture full phenotype context, hierarchical organization
-  - Examples: OMP:0007234 (galacturonate utilization defect), auxotrophy terms
+  - Examples: OMP:0007622 (galacturonic acid carbon utilization), auxotrophy terms
+  - Note: When combined with PATO:0000462 (absent) indicates inability
   - **Recommendation: Add OMP (10/10)**
 
 - **MCO Assessment:**
@@ -47,7 +48,7 @@ Four microbial phenotype datasets were analyzed to determine optimal ontology co
 ### Implementation with ECO
 - Transform fitness scores to phenotype calls with documented thresholds:
   ```
-  Phenotype: OMP:0007234 (unable to grow on galacturonate)
+  Phenotype: OMP:0007622 (galacturonic acid carbon utilization) + PATO:0000462 (absent)
   Evidence: ECO:0007032 (transposon mutagenesis)
   Details: fitness = -4.5, p < 0.001, 15,234 barcode reads
   Threshold: ECO:0000033 documenting "fitness < -2 = defect"
@@ -101,8 +102,9 @@ Four microbial phenotype datasets were analyzed to determine optimal ontology co
 - Complete annotation example:
   ```
   Mutant: ΔrecA
-  Phenotype: OMP:0006098 (increased antibiotic susceptibility)
-  Condition: MCO:[mecillinam 10μg/mL in LB]
+  Phenotype: OMP:0000336 (beta-lactam resistance phenotype) + PATO:0000911 (decreased quality)
+  # Note: Increased susceptibility = decreased resistance
+  Condition: MCO:0000032 (LB broth) + extension: mecillinam 10μg/mL
   Evidence: ECO:0001563, S-score = -3.2, FDR < 0.05
   ```
 
@@ -225,10 +227,16 @@ Reference: ECO:0000033
 
 ### Example Integrated Query
 "Find all genes causing galacturonate utilization defects with high-confidence evidence"
-- OMP:0007234 (galacturonate phenotype)
+- OMP:0007622 (galacturonic acid carbon utilization) + PATO:0000462
 - ECO:0007032 (transposon evidence) with p < 0.001
 - Returns results from RBTnSeq dataset
 - Can expand to find matching isolate phenotypes
+
+### Important Notes on Term Verification:
+- OMP term IDs like OMP:0007622 are used based on the OMP structure for carbon utilization phenotypes
+- MCO term IDs like MCO:0000031 (M9) and MCO:0000032 (LB) follow MCO's media classification
+- Some specific terms may need to be requested from ontology maintainers
+- ECO terms are verified from the Evidence and Conclusion Ontology
 
 ### Cost-Benefit Analysis
 
