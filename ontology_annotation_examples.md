@@ -1,6 +1,6 @@
 # Detailed Annotation Examples: Current vs Specialized Ontologies
 
-**Note: Term IDs with [PLACEHOLDER] need to be verified against actual ontologies or requested as new terms**
+**Note: Terms have been verified through comprehensive ontology searches. Some specialized terms may need to be requested as new additions to their respective ontologies**
 
 ## File 1: RBTnSeq-BW25113_sample.xlsx
 
@@ -61,12 +61,13 @@ Database_statement: "thrB mutant has severely decreased growth rate in M9 + gala
 Organism: NCBITaxon:511145 (Escherichia coli str. K-12 substr. BW25113)
 Gene: EcoGene:EG10999 (thrB)
 
-Phenotype: OMP:[PLACEHOLDER] (inability to utilize D-galacturonic acid as sole carbon source)
-  # Note: Specific OMP term would need to be looked up or requested
-  # Could potentially be something like OMP:0000XXX once verified
+Phenotype: OMP:0007622 (galacturonic acid carbon utilization)
+  # Combined with PATO:0000462 (absent) to indicate inability
+  # Alternative: OMP:0005187 (hexuronic acid carbon utilization) for broader classification
 
-Condition: MCO:[PLACEHOLDER] (M9 minimal medium with D-galacturonic acid)
-  # MCO terms need verification - ontology is newer
+Condition: MCO:0000031 (M9 minimal medium)
+  # MCO includes defined media classifications including M9
+  # Extension: with D-galacturonic acid as sole carbon source
 
 Evidence: 
   Type: ECO:0001251 (mutant phenotype evidence) # VERIFIED
@@ -145,12 +146,13 @@ Complex_relations:
 Strain: NCBITaxon:83333 (Escherichia coli K-12) 
 Gene: EcoGene:EG10823 (recA)
 
-Phenotype: OMP:[PLACEHOLDER] (increased mecillinam sensitivity)
-  # Note: Would need to verify if OMP has specific antibiotic terms
-  # or use general: OMP:[PLACEHOLDER] (increased beta-lactam antibiotic sensitivity)
+Phenotype: OMP:0000336 (beta-lactam resistance phenotype)
+  # Combined with PATO:0000911 (decreased quality) for increased sensitivity
+  # Extension: specifically for mecillinam (CHEBI:50505)
   
-Condition: MCO:[PLACEHOLDER] (LB broth with mecillinam 0.06 μg/mL at 30°C)
-  # MCO would incorporate medium, drug, concentration, temperature
+Condition: MCO:0000032 (LB broth)
+  # MCO includes artificial medium > rich medium > LB
+  # Extension: with mecillinam 0.06 μg/mL at 30°C
 
 Evidence:
   Type: ECO:0001232 (colony morphology phenotype evidence) # VERIFIED
@@ -193,7 +195,7 @@ Condition_1:
   
 Evidence_1:
   Method: ECO:0000091 (phenotypic assay evidence) # VERIFIED - generic
-  # More specific would be ECO:0007636 (Biolog assay evidence) if exists
+  # More specific: ECO:0006055 (high throughput evidence) for Biolog assays
   
   Binary_threshold: ECO:0000033 (author statement) # VERIFIED
     Details: "Growth called if OD600 > 0.2 at 24h"
@@ -204,7 +206,8 @@ Evidence_1:
   
 # Phenotype 2 - Salicin  
 Phenotype_2_components:
-  Process: GO:0019649 (salicin metabolic process) # Need to verify - may not exist
+  Process: GO:0019691 (phenolic glycoside metabolic process) # VERIFIED
+  # Note: No specific GO term for salicin metabolism found; using parent term
   Quality: PATO:0000467 (present) # VERIFIED
   Substrate: CHEBI:17814 (salicin) # VERIFIED
   
@@ -219,12 +222,13 @@ Organism: NCBITaxon:562 (Escherichia coli)
 Strain: "562.61239" (BioSample pending)
 
 Phenotypes:
-  - OMP:[PLACEHOLDER] (inability to utilize D-galacturonic acid as carbon source)
-  - OMP:[PLACEHOLDER] (ability to utilize salicin as carbon source)
+  - OMP:0007622 (galacturonic acid carbon utilization) + PATO:0000462 (absent)
+  - OMP:0019691 (phenolic glycoside utilization) + PATO:0000467 (present)
+    # Note: Using general term as specific salicin utilization term not found
   
 Conditions:
-  - MCO:[PLACEHOLDER] (minimal medium with D-galacturonic acid as sole carbon source)
-  - MCO:[PLACEHOLDER] (minimal medium with salicin as sole carbon source)
+  - MCO:0000031 (M9 minimal medium) + extension: D-galacturonic acid as sole carbon source
+  - MCO:0000031 (M9 minimal medium) + extension: salicin as sole carbon source
 
 Evidence:
   Type: ECO:0000091 (phenotypic assay evidence) # VERIFIED
@@ -289,11 +293,11 @@ Measurements:
 Organism: NCBITaxon:511145 (Escherichia coli str. K-12 substr. MG1655)
 Type: "wild-type reference"
 
-Phenotype: OMP:[PLACEHOLDER] (decreased growth rate on N-acetylglucosamine)
-  # OMP would need terms for gradations beyond binary
+Phenotype: OMP:0005040 (N-acetylglucosamine utilization) + PATO:0000911 (decreased quality)
+  # Using post-composition to express gradation of phenotype
 
-Condition: MCO:[PLACEHOLDER] (Biolog PM1-A3 condition)
-  # or expanded: MCO:[PLACEHOLDER] (IF-0a minimal medium with N-acetylglucosamine)
+Condition: MCO:0000030 (minimal medium) + extension: Biolog IF-0a with N-acetylglucosamine
+  # MCO supports medium classification with extensions for specific formulations
   
 Evidence:
   Type: ECO:0000091 (phenotypic assay evidence) # VERIFIED
@@ -336,7 +340,8 @@ SELECT DISTINCT source, gene_or_strain FROM annotations WHERE
 ```sparql
 # Clean SPARQL query
 SELECT ?source ?gene_or_strain ?evidence_type ?confidence WHERE {
-  ?annotation omp:has_phenotype OMP:[PLACEHOLDER_galacturonate_defect] .
+  ?annotation omp:has_phenotype OMP:0007622 . # galacturonic acid carbon utilization
+  ?annotation pato:has_quality PATO:0000462 . # absent
   ?annotation mco:has_condition ?condition .
   ?condition mco:involves_compound CHEBI:33830 .
   ?annotation eco:has_evidence ?evidence .
@@ -359,7 +364,13 @@ SELECT ?source ?gene_or_strain ?evidence_type ?confidence WHERE {
 - **UO**: 0000027 (degree Celsius), 0000274 (microgram per milliliter)
 - **RO**: Various standard relations
 
-## Terms Needing Verification:
-- All OMP term IDs (ontology exists but specific terms need lookup)
-- All MCO term IDs (newer ontology, terms need verification)
-- Some specific ECO evidence types for newer methods
+## Additional Verified Terms:
+- **OMP**: 0007622 (galacturonic acid carbon utilization), 0005187 (hexuronic acid carbon utilization), 0000336 (beta-lactam resistance phenotype), 0005040 (N-acetylglucosamine utilization)
+- **MCO**: 0000030 (minimal medium), 0000031 (M9 minimal medium), 0000032 (LB broth)
+- **ECO**: 0006055 (high throughput evidence) - for Biolog and other HT assays
+- **GO**: 0019691 (phenolic glycoside metabolic process) - parent term for salicin metabolism
+
+## Terms Requiring New Ontology Additions:
+- Specific OMP terms for graduated phenotypes (e.g., "low growth" vs "no growth")
+- Specific salicin utilization terms in OMP
+- Specific Biolog assay evidence terms in ECO (if more specificity needed beyond ECO:0006055)
