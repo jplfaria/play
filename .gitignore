@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# macOS
+.DS_Store
+
+# Large ontology files
+ontologies/*.owl
+ontologies/*.obo
+
+# Excel files (data samples)
+*.xlsx
+*.xls
+
+# Keep only the tools and documentation
+!ontology_tools/
