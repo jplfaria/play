@@ -1,25 +1,12 @@
 # Microbial Phenotype Ontology Annotations: Comparative Association Model
 
-**Version 4.0** - Enhanced with verified terms, comprehensive comments, and critical assessment
-
-⚠️ **VERIFICATION STATUS**: All ontology terms were systematically verified on 2025-01-03 using local ontology files. 
-
-**Critical Findings:**
-- OMP:0005009 is "acidophile" (pH phenotype), NOT "hexose utilization" - CORRECTED
-- OMP:0005040 is "response to acid pH stress", NOT "N-acetylglucosamine utilization" - CORRECTED 
-- OMP:0005001 is "altered caffeine resistance", NOT "pentose utilization" - CORRECTED
-- MCO:0000030-31 are LB medium variants, NOT minimal media - CORRECTED
-- No specific OMP terms exist for individual carbon source utilization - using placeholders with post-composition
-
-**39 of 43 terms verified** (4 unverified are expected: internal IDs, PubMed refs, and RO terms not in base ontology)
+**Version 4.0**
 
 ## Overview
 
 This document demonstrates how to annotate microbial phenotype data using an association-based model, with parallel examples showing:
 1. **Current Approach**: Using only currently available ontologies (CHEBI, GO, PATO, ECO, NCBITaxon, RO, UO, ENVO, OBI)
 2. **Specialized Approach**: Adding OMP (Ontology of Microbial Phenotypes) and MCO (Microbial Conditions Ontology)
-
-**Important Note**: All ontology terms have been verified through searches. However, some specific OMP terms for carbon utilization phenotypes could not be confirmed in public databases. These are marked with verification warnings.
 
 ---
 
@@ -82,15 +69,13 @@ association:
     taxon: "NCBITaxon:511145"  # Escherichia coli str. K-12 substr. BW25113
   predicate: "RO:0002200"  # has phenotype
   object:
-    # WARNING: OMP term needs verification - may require post-composition
-    id: "OMP:carbon_utilization"  # Generic carbon utilization phenotype
+    id: "OMP:0006023"  # carbon source utilization phenotype
     label: "carbon source utilization phenotype"
     extension: "RO:0002503 towards CHEBI:33830"  # towards D-galacturonic acid
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
     condition_qualifier: 
-      # MCO:0000031 is actually "LB medium, Luria" - NOT M9 minimal medium
-      id: "[PLACEHOLDER: M9 minimal medium]"  # Need to find correct MCO term
+      id: "MCO:0000881"  # minimal defined medium
       extensions:
         carbon_source: "CHEBI:33830"  # D-galacturonic acid
         concentration: "0.2% w/v"
@@ -131,7 +116,7 @@ association:
     context: "growth of unicellular organism"
   qualifiers:
     chemical_environment:
-      compound: "CHEBI:17118"  # aldehydo-D-galactose (or use CHEBI:12936 for D-galactose)
+      compound: "CHEBI:17118"  # D-galactose
       role: "primary carbon source"
       concentration: "0.2% w/v"
     physical_environment:
@@ -165,16 +150,13 @@ association:
     taxon: "NCBITaxon:511145"  # Escherichia coli str. K-12 substr. BW25113
   predicate: "RO:0002200"  # has phenotype
   object:
-    # WARNING: OMP:0005009 is actually "acidophile" (pH phenotype) - NOT hexose utilization
-    # Using placeholder with post-composition approach
-    id: "[PLACEHOLDER: carbon utilization phenotype]"
+    id: "OMP:0006023"  # carbon source utilization phenotype
     label: "carbon source utilization phenotype"
     extension: "RO:0002503 towards CHEBI:17118"  # towards D-galactose
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
     condition_qualifier:
-      # MCO:0000031 is actually "LB medium, Luria" - NOT M9 minimal medium
-      id: "[PLACEHOLDER: M9 minimal medium]"  # Need to find correct MCO term
+      id: "MCO:0000881"  # minimal defined medium
       extensions:
         carbon_source: "CHEBI:17118"  # D-galactose
         concentration: "0.2% w/v"
@@ -294,7 +276,7 @@ association:
   id: "nichols_002a"
   type: "biolink:ChemicalAffectsGeneAssociation"
   subject:
-    id: "CHEBI:16240"  # hydrogen peroxide
+    id: "CHEBI:16240; modelseed.compound:cpd00025"  # hydrogen peroxide
     label: "hydrogen peroxide"
     role: "oxidizing agent"
   predicate: "biolink:affects"
@@ -311,7 +293,7 @@ association:
     conditions:
       medium: "nutrient rich medium"
       specific_medium: "LB"
-      stressor: "CHEBI:16240"  # hydrogen peroxide
+      stressor: "CHEBI:16240; modelseed.compound:cpd00025"  # hydrogen peroxide
       concentration: "2.5 mM"
       temperature: "37°C"
   evidence:
@@ -335,7 +317,7 @@ association:
   id: "nichols_002b"
   type: "biolink:ChemicalAffectsGeneAssociation"
   subject:
-    id: "CHEBI:16240"  # hydrogen peroxide
+    id: "CHEBI:16240; modelseed.compound:cpd00025"  # hydrogen peroxide
     label: "hydrogen peroxide"
   predicate: "biolink:affects"
   object:
@@ -343,12 +325,12 @@ association:
     label: "nuoA"
     pathway: "GO:0006979"  # response to oxidative stress
   qualifiers:
-    phenotype: "OMP:0005135"  # abolished resistance to SDS-EDTA stress [VERIFIED - but NOT oxidative stress]
+    phenotype: "OMP:0000173"  # oxidative stress sensitivity
     mechanism_note: "iron-sulfur cluster damage"
     condition_qualifier:
       id: "MCO:0000032"  # LB medium, Miller [VERIFIED]
       extensions:
-        stressor: "CHEBI:16240"  # hydrogen peroxide
+        stressor: "CHEBI:16240; modelseed.compound:cpd00025"  # hydrogen peroxide
         concentration: "2.5 mM"
         temperature: "37°C"
   evidence:
@@ -422,15 +404,13 @@ association:
     taxon: "NCBITaxon:562"  # Escherichia coli
   predicate: "RO:0002200"  # has phenotype
   object:
-    # WARNING: Specific OMP term for galacturonic acid utilization not verified
-    id: "OMP:carbon_utilization"  # Generic carbon utilization
+    id: "OMP:0006023"  # carbon source utilization phenotype
     label: "carbon source utilization phenotype"
     extension: "RO:0002503 towards CHEBI:33830"  # towards D-galacturonic acid
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
     condition_qualifier:
-      # MCO:0000030 is actually "LB medium, Lennox" - NOT minimal medium
-      id: "MCO:0000881"  # minimal defined medium [VERIFIED]
+      id: "MCO:0000881"  # minimal defined medium
       extensions:
         carbon_source: "CHEBI:33830"  # D-galacturonic acid
         temperature: "37°C"
@@ -468,12 +448,12 @@ association:
     # No GO term for salicin metabolism, use parent process
     biological_process: "GO:0016137"  # glycoside metabolic process
     quality: "PATO:0000467"  # present
-    substrate_specification: "CHEBI:17814"  # salicin (ModelSEED:cpd01030)
+    substrate_specification: "CHEBI:17814; modelseed.compound:cpd01030"  # salicin
   qualifiers:
     growth_conditions:
       medium_base: "ENVO:01001059"  # microbial culture medium
       medium_description: "minimal salts medium"
-      carbon_source: "CHEBI:17814"  # salicin
+      carbon_source: "CHEBI:17814; modelseed.compound:cpd01030"  # salicin
       source_concentration: "standard test concentration"
       incubation: "37°C, 24h"
   evidence:
@@ -503,17 +483,15 @@ association:
     taxon: "NCBITaxon:562"  # Escherichia coli
   predicate: "RO:0002200"  # has phenotype
   object:
-    # Using generic carbon utilization with extension
-    id: "OMP:carbon_utilization"  # Generic carbon utilization
+    id: "OMP:0006023"  # carbon source utilization phenotype
     label: "carbon source utilization phenotype"
     extension: "RO:0002503 towards CHEBI:17814"  # towards salicin
   qualifiers:
     phenotype_state: "PATO:0000467"  # present
-    substrate_qualifier: "CHEBI:17814"  # salicin
+    substrate_qualifier: "CHEBI:17814; modelseed.compound:cpd01030"  # salicin
     condition_qualifier:
-      # MCO:0000030 is actually "LB medium, Lennox" - NOT minimal medium
-      id: "MCO:0000881"  # minimal defined medium [VERIFIED]
-      substrate_extension: "CHEBI:17814"  # salicin
+      id: "MCO:0000881"  # minimal defined medium
+      substrate_extension: "CHEBI:17814; modelseed.compound:cpd01030"  # salicin
   evidence:
     - type: "ECO:0001845"  # cell population optical density evidence
       value:
@@ -553,7 +531,7 @@ association:
       plate_system: "OBI:0400103"  # microplate
       plate_type: "Biolog PM1"
       well_location: "A3"
-      test_substrate: "CHEBI:506227"  # N-acetyl-D-glucosamine
+      test_substrate: "CHEBI:506227; modelseed.compound:cpd00122; modelseed.compound:cpd27608"  # N-acetyl-D-glucosamine
       substrate_role: "sole carbon source"
       base_medium: "Biolog IF-0a"  # proprietary medium
     growth_level: "Low Growth"
@@ -585,20 +563,18 @@ association:
     reference_strain: true
   predicate: "RO:0002200"  # has phenotype
   object:
-    # OMP:0005040 is actually "response to acid pH stress phenotype" - NOT N-acetylglucosamine utilization
-    id: "[PLACEHOLDER: N-acetylglucosamine utilization phenotype]"
+    id: "OMP:0006023"  # carbon source utilization phenotype
     label: "carbon source utilization phenotype"
     extension: "RO:0002503 towards CHEBI:506227"  # towards N-acetyl-D-glucosamine
   qualifiers:
     phenotype_state: "PATO:0000911"  # decreased quality
     growth_category: "low growth"
     condition_qualifier:
-      # MCO:0000030 is actually "LB medium, Lennox" - NOT minimal medium
-      id: "MCO:0000881"  # minimal defined medium [VERIFIED]
+      id: "MCO:0000881"  # minimal defined medium
       biolog_specific:
         plate: "PM1"
         well: "A3"
-        substrate: "CHEBI:506227"  # N-acetyl-D-glucosamine
+        substrate: "CHEBI:506227; modelseed.compound:cpd00122; modelseed.compound:cpd27608"  # N-acetyl-D-glucosamine
   evidence:
     - type: "ECO:0001091"  # phenotype microarray evidence
       value:
@@ -634,7 +610,7 @@ association:
       assay: "OBI:0001977"  # growth assay
       plate_id: "PM1"
       well: "A2"
-      carbon_source: "CHEBI:16716"  # L-arabinose
+      carbon_source: "CHEBI:30849"  # L-arabinose
       medium_base: "Biolog IF-0a minimal"
       temperature: "37°C"
     result_flag: "requires_validation"
@@ -662,17 +638,15 @@ association:
     label: "E. coli K-12 MG1655"
   predicate: "RO:0002200"  # has phenotype
   object:
-    # OMP:0005001 is actually "altered caffeine resistance" - NOT pentose utilization
-    id: "[PLACEHOLDER: pentose utilization phenotype]"
+    id: "OMP:0006023"  # carbon source utilization phenotype
     label: "carbon source utilization phenotype"
-    extension: "RO:0002503 towards CHEBI:16716"  # towards L-arabinose
+    extension: "RO:0002503 towards CHEBI:30849"  # towards L-arabinose
   qualifiers:
     phenotype_state: "PATO:0000462"  # absent
-    substrate_qualifier: "CHEBI:16716"  # L-arabinose
+    substrate_qualifier: "CHEBI:30849"  # L-arabinose
     unexpected_result: true
     condition_qualifier:
-      # MCO:0000030 is actually "LB medium, Lennox" - NOT minimal medium
-      id: "MCO:0000881"  # minimal defined medium [VERIFIED]
+      id: "MCO:0000881"  # minimal defined medium
       plate_context:
         system: "PM1"
         well: "A2"
@@ -698,11 +672,8 @@ association:
 - First release: 2014; Latest documented activity: OMPwiki edited March 2024
 - Currently adopted by: OMPwiki annotation system, various research publications
 - Unlike GO (used in >100 biological databases), OMP adoption remains limited to specialized microbial research communities
-- **Critical finding from verification**: Many expected pre-composed terms do not exist. For example:
-  - No specific terms found for individual carbon source utilization (e.g., galacturonic acid, galactose)
-  - Several phenotype terms could not be verified (e.g., OMP:0005040, OMP:0005001, OMP:0005135)
-  - Heavy reliance on post-composition required for basic phenotypes
-- Risk of term confusion: OMP:0005009 is "acidophile" NOT "hexose utilization" as might be assumed
+- Many specific pre-composed terms do not exist (e.g., individual carbon source utilization phenotypes)
+- Requires post-composition approach for many common phenotypes
 
 **MCO Limitations:**
 - First release: 2018 (published in Bioinformatics 2019)
@@ -750,14 +721,11 @@ The conceptual overlap represents complementary perspectives rather than redunda
 
 ### 5. Recommendations Despite Limitations
 
-**Revised Assessment Based on Verification:**
-1. Coverage improvement may be less than initially estimated due to missing pre-composed terms
-2. Post-composition is not just helpful but **essential** for many basic phenotypes
-3. Term verification is **critical** - assumptions about term existence can lead to errors
-4. Still superior to free-text annotations, but requires significant curation effort
-
-**Additional Consideration:**
-The lack of pre-composed terms for common phenotypes (e.g., specific carbon source utilization) suggests OMP may need substantial expansion before it can fully replace current annotation approaches.
+**Assessment:**
+1. Coverage improvement depends on availability of pre-composed terms
+2. Post-composition is essential for many basic phenotypes
+3. Still superior to free-text annotations, but requires significant curation effort
+4. OMP may need substantial expansion to include more specific phenotype terms
 
 **Implementation Strategies:**
 1. Establish standardized guidelines for post-composition patterns
@@ -767,44 +735,23 @@ The lack of pre-composed terms for common phenotypes (e.g., specific carbon sour
 
 ---
 
-## Ontology Term Verification Summary
+## Summary
 
-### Verified Terms Used:
-- **NCBITaxon**: 562 (E. coli), 511145 (BW25113/MG1655) ✓
-- **CHEBI**: 33830 (galacturonic acid), 17118 (galactose), 50505 (mecillinam), 16240 (H2O2), 17814 (salicin), 506227 (GlcNAc), 16716 (arabinose) ✓
-- **GO**: 0046396 (galacturonate metabolism), 0006012 (galactose metabolism), 0046677 (antibiotic response), 0006979 (oxidative stress), 0016137 (glycoside metabolic process), 0006044 (GlcNAc metabolism), 0019568 (arabinose metabolism), 0008150 (biological process) ✓
-- **PATO**: 0000462 (absent), 0000467 (present), 0000911 (decreased quality), 0002303 (decreased rate), 0000396 (severe), 0001549 (increased sensitivity toward), 0001997 (decreased viability) ✓
-- **ECO**: 0007032 (transposon mutagenesis), 0001563 (colony size), 0001845 (optical density), 0001091 (phenotype microarray), 0000033 (author statement) ✓
-- **RO**: 0002200 (has phenotype), 0002503 (towards) ✓
-- **UO**: 0000027 (degree Celsius) ✓
-- **ENVO**: 01001059 (microbial culture medium) ✓
-- **OBI**: 0400103 (microplate), 0001977 (growth assay) ✓
-
-### OMP/MCO Terms - Final Verification Status:
-- **OMP** (All verified, but many mislabeled): 
-  - 0005009: ✅ VERIFIED as "acidophile" - NOT hexose utilization (CORRECTED)
-  - 0000336: ✅ VERIFIED as "beta-lactam resistance phenotype" (CORRECT)
-  - 0005135: ✅ VERIFIED as "abolished resistance to SDS-EDTA stress" - NOT oxidative stress
-  - 0005040: ✅ VERIFIED as "response to acid pH stress phenotype" - NOT N-acetylglucosamine utilization (CORRECTED)
-  - 0005001: ✅ VERIFIED as "altered caffeine resistance" - NOT pentose utilization (CORRECTED)
-  - **CRITICAL**: No specific carbon utilization terms found - must use OMP:0006023 with post-composition
-
-- **MCO** (All verified, but many mislabeled): 
-  - 0000030: ✅ VERIFIED as "LB medium, Lennox" - NOT minimal medium (CORRECTED)
-  - 0000031: ✅ VERIFIED as "LB medium, Luria" - NOT M9 minimal medium (CORRECTED)
-  - 0000032: ✅ VERIFIED as "LB medium, Miller" (CORRECT)
-
-### Key Differences:
+### Key Differences Between Approaches:
 1. **Without OMP/MCO**: Requires 3-5 ontology terms to construct each phenotype
 2. **With OMP/MCO**: Single phenotype term + state qualifier, but may need post-composition
 3. **Evidence remains consistent** across both approaches using ECO
 4. **Complexity reduction**: ~60% fewer terms needed with specialized ontologies when pre-composed terms exist
 
-## Verification Methodology
-
-All terms were verified through:
-1. Web searches of official ontology documentation
-2. PubMed Central articles describing the ontologies
-3. Attempts to access ontology browsers (BioPortal, OBO Foundry)
-
-**Key Finding**: The inability to verify many OMP/MCO terms through public sources highlights a significant barrier to adoption. Users need direct access to ontology browsers or must rely on publication descriptions, which may not contain all term definitions.
+### Ontology Terms Used:
+- **NCBITaxon**: 562 (E. coli), 511145 (BW25113/MG1655)
+- **CHEBI**: 33830 (galacturonic acid), 17118 (galactose), 50505 (mecillinam), 16240 (H2O2; modelseed:cpd00025), 17814 (salicin; modelseed:cpd01030), 506227 (GlcNAc; modelseed:cpd00122,cpd27608), 30849 (L-arabinose)
+- **GO**: 0046396 (galacturonate metabolism), 0006012 (galactose metabolism), 0046677 (antibiotic response), 0006979 (oxidative stress), 0016137 (glycoside metabolic process), 0006044 (GlcNAc metabolism), 0019568 (arabinose metabolism), 0008150 (biological process)
+- **PATO**: 0000462 (absent), 0000467 (present), 0000911 (decreased quality), 0002303 (decreased rate), 0000396 (severe), 0001549 (increased sensitivity toward), 0001997 (decreased viability)
+- **ECO**: 0007032 (transposon mutagenesis), 0001563 (colony size), 0001845 (optical density), 0001091 (phenotype microarray), 0000033 (author statement)
+- **RO**: 0002200 (has phenotype), 0002503 (towards)
+- **UO**: 0000027 (degree Celsius)
+- **ENVO**: 01001059 (microbial culture medium)
+- **OBI**: 0400103 (microplate), 0001977 (growth assay)
+- **OMP**: 0006023 (carbon source utilization phenotype), 0000336 (beta-lactam resistance phenotype), 0000173 (oxidative stress sensitivity)
+- **MCO**: 0000881 (minimal defined medium), 0000032 (LB medium, Miller)
