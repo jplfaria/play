@@ -1,0 +1,42 @@
+CHEBI Terms Without ModelSEED Mappings in ontology_annotation_examples_v4.md
+============================================================================
+
+Based on analysis of the file, the following CHEBI terms do NOT have ModelSEED mappings:
+
+1. CHEBI:33830 (D-galacturonic acid)
+   - Found on lines: 35, 74, 80, 375, 409, 415
+   - Used in multiple examples but never paired with a modelseed ID
+
+2. CHEBI:17118 (D-galactose)  
+   - Found on lines: 119, 155, 161
+   - Used in galK gene examples but lacks modelseed mapping
+
+3. CHEBI:50505 (mecillinam)
+   - Found on lines: 190, 203, 235, 250
+   - Beta-lactam antibiotic used in chemical genomics examples
+
+4. CHEBI:30849 (L-arabinose)
+   - Found on lines: 613, 643, 646
+   - Used in MG1655 Biolog phenotype array examples
+
+CHEBI Terms WITH ModelSEED Mappings:
+====================================
+
+1. CHEBI:16240 (hydrogen peroxide) → modelseed.compound:cpd00025
+   - Found on lines: 279, 296, 320, 333
+
+2. CHEBI:17814 (salicin) → modelseed.compound:cpd01030
+   - Found on lines: 451, 456, 488, 491, 494
+
+3. CHEBI:506227 (N-acetyl-D-glucosamine) → modelseed.compound:cpd00122; modelseed.compound:cpd27608
+   - Found on lines: 534, 568, 577
+
+Summary:
+========
+Total CHEBI terms found: 7
+Terms WITHOUT ModelSEED mappings: 4 (57%)
+Terms WITH ModelSEED mappings: 3 (43%)
+
+The terms without mappings represent common metabolites that should likely have ModelSEED identifiers:
+- Two common sugars (galacturonic acid, galactose, arabinose)
+- One antibiotic (mecillinam)
